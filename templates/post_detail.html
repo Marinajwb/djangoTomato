@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,22 @@
 </head>
 <body>
     <div id="navbar">
-        <span> tomato </span>
+        {% if post.thumbnail %}
+            <img src="{{ post.thumbnail.url }}">
+        {% endif %}
+        <span>{{post.title}}} </span>
     </div>
 <div id="post-detail">
     <h1> Post Detail </h1>
+    <p> {{ post.content|linebreaksbr }} </p>
+    <ul class="comment">
+        {% for comment in post.comment_set.all %}
+        <li class="comment">{{comment.content}}</li>
+        {% empty %}
+        <li class="comment-empty"> 아직 댓글이 없습니다. </li>
+        {% endfor %}
+
+    </ul>
 </div>
 </body>
 </html>

@@ -9,4 +9,9 @@ def post_list(req):
     return render(req,'post_list.html',context)
 
 def post_detail(req,post_id):
-    return render(req, "post_detail.html")
+    post = Post.objects.get(id=post_id)
+
+    context = {
+        'post' : post,
+    }
+    return render(req, "post_detail.html", context)
