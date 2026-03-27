@@ -122,3 +122,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+#MEDIA (A static file attached from user )
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -25,6 +25,11 @@
             <li class="comment-empty"> 아직댓글이 없습니다.</li>
                 {% endfor %}
             </ul>
+                {% if post.thumbnail %}
+                <img src="{{ post.thumbnail.url }}" alt ="">
+                {% else %}
+                <img src="" slt="">
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
