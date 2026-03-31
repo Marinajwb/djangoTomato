@@ -15,3 +15,13 @@ def post_detail(req,post_id):
         'post' : post,
     }
     return render(req, "post_detail.html", context)
+
+def post_add(req):
+    if req.method == 'POST':
+        print("method POST")
+        title = req.POST['text']
+        content = req.POST['content']
+        print(title)
+    else:
+        print("method GET")
+    return render(req, 'post_add.html')

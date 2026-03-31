@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div>
+    <h1>Post Add</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <div>
+        <lable>제목</lable>
+        <input name="text" type="text">
+      </div>
+      <div>
+        <label>내용</label>
+        <textarea name="content" cols="50" rows="10"></textarea>
+      </div>
+          <button type="submit">작성</button>
+    </form>
+
+  </div>
+</body>
+</html>
