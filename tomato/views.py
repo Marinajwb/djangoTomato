@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from tomato.models import Post
+from django.shortcuts import render, redirect
+from tomato.models import Post, Comment
 
 def post_list(req):
     posts = Post.objects.all()
@@ -10,7 +10,14 @@ def post_list(req):
 
 def post_detail(req,post_id):
     post = Post.objects.get(id=post_id)
-
+    if req.method == 'POST':
+        # textarea의 "name" 속성값을 가져옴
+        comment_content = req.POST.get("comment")
+        print(comment_content)
+        Comment.objects.create(
+            post    = post,
+            content = comment_content,
+        )
     context = {
         'post' : post,
     }
@@ -21,7 +28,11 @@ def post_add(req):
         print("method POST")
         title = req.POST['text']
         content = req.POST['content']
-        print(title)
+        post = Post.objects.create(
+            title=title,
+            content=content
+        )
+        return redirect(f"/detail/{post.id}/")
     else:
         print("method GET")
     return render(req, 'post_add.html')
