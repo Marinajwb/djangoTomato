@@ -26,11 +26,14 @@ def post_detail(req,post_id):
 def post_add(req):
     if req.method == 'POST':
         print("method POST")
+        print(req.FILES)
         title = req.POST['text']
         content = req.POST['content']
+        thumbnail = req.FILES["thumbnail"] #image file
         post = Post.objects.create(
             title=title,
-            content=content
+            content=content,
+            thumbnail = thumbnail
         )
         return redirect(f"/detail/{post.id}/")
     else:

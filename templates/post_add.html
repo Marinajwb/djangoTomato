@@ -11,7 +11,7 @@
     <sapn>글 작성</sapn>
   </div>
       <div id="post-add">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data" >
           {% csrf_token %}
         <div>
         <lable>제목</lable>
@@ -21,6 +21,10 @@
         <label>내용</label>
         <textarea name="content"></textarea>
         </div>
+            <div>
+                <<label>썸네일</label>
+                <input name="thumbnail" type="file">
+            </div>
           <button type="submit" class="btn btn-primary">작성</button>
         </form>
       </div>

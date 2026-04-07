@@ -24,7 +24,7 @@ from tomato.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('post_list/',post_list),
+    path('post_list/',post_list, name='post_list'),
     path('detail/<int:post_id>/', post_detail),
     path('post_add/', post_add),
 ]
