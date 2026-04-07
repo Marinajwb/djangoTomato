@@ -1,10 +1,18 @@
 from django.shortcuts import render, redirect
 from tomato.models import Post, Comment
+from django.core.paginator import Paginator
 
 def post_list(req):
     posts = Post.objects.all()
 
-    context = {'posts' : posts}
+    paginator = Paginator(posts, 5)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'posts' : page_obj,
+        'page_obj' : page_obj,
+
+    }
 
     return render(req,'post_list.html',context)
 
