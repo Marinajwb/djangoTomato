@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+
+# 환경변수
+.env
+
+# static
+staticfiles/
+
+# IDE
+.idea/
+.vscode/
