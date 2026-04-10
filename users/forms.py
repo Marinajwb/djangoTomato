@@ -34,3 +34,15 @@ class signupForm(forms.Form):
         if( password1 != password2 ):
             #pw2 필드에 오류를 추가
             self.add_error('password2','비밀번화 확인란의 값이 다릅니다.')
+    def save(self):
+        username = self.cleaned_data['username']
+        password1 = self.cleaned_data['password1']
+        short_description = self.cleaned_data["short_description"]
+        profile_image = self.cleaned_data["profile_image"]
+        user = User.objects.create_user(
+            username  = username,
+            password1 = password1,
+            profile_image = profile_image,
+            short_description = short_description,
+        )
+        return user
