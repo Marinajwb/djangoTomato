@@ -1,19 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <div id="login">
         <form method="POST">
             {% csrf_token %}
             <h1>login</h1>
             {{ form.as_p}}
             <button type="submit" class="btn btn-login">로그인</button>
+             <a href="/users/signup/">회원가입 페이지로 이동 </a>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
