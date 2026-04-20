@@ -4,6 +4,7 @@
         <h1>
             <a href="/posts/feeds/">Marina's cats are really cute</a>
         </h1>
+        <a href="/posts/post_add/">Add post</a>
         <a href="/users/logout/">logout</a>
     </nav>
     <div id="feeds" class="post-container" >
@@ -43,6 +44,12 @@
                             <li>
                                 <span>{{ comment.user.username }}</span>
                                 <span>{{ comment.content }}</span>
+                                {% if user == comment.user %}
+                                    <form method="POST" action="/post/comment_delete/{{ comment.id }}">
+                                        {% csrf_token %}
+                                        <button type='submit'>삭제</button>
+                                    </form>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
