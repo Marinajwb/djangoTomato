@@ -3,10 +3,11 @@ from posts.models import Post, Comment, PostImage
 from posts.forms import CommentForm, PostForm
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.urls import reverse
 
 def feeds(req):
     if not req.user.is_authenticated:
-        return redirect('/users/login')
+        return redirect('users:login')
     posts = Post.objects.all()
     comment_form = CommentForm()
     context = {
@@ -26,8 +27,10 @@ def comment_add(req):
         comment.user = req.user
         #DB에 Comment 객체 저장
         comment.save()
-
-    return HttpResponseRedirect(f'/posts/feeds/#post-{comment.post.id}')
+    # HttpResponseRedirect는 URL pattern name 을 사용할 수 없다
+        url = reverse('posts:feeds') + f'#post-{comment.post.id}'
+        return HttpResponseRedirect(url)
+    # return HttpResponseRedirect(f'/posts/feeds/#post-{comment.post.id}')
 
 @require_POST
 def comment_delete(req,comment_id):
@@ -35,10 +38,13 @@ def comment_delete(req,comment_id):
         comment = Comment.objects.get(id=comment_id)
         if comment.user == req.user:
             comment.delete()
-            return HttpResponseRedirect(f'/posts/feeds/#post-{comment.post.id}')
+            url = reverse('posts:feeds')+ f"#post-{comment.post.id}"
+            return HttpResponseRedirect(url)
+            #return HttpResponseRedirect(f'/posts/feeds/#post-{comment.post.id}')
         else:
             return HttpResponseForbidden("이 댓글을 삭제할 권한이 없습니다.")
-
+# 위치인수로 호출한 경우 coment_delete(5)
+# 키워드인수로 호출한 경우 comment_delete(comment_id = 5)
 def post_add(req):
     if( req.method == "POST"):
         form = PostForm(req.POST)
@@ -56,7 +62,8 @@ def post_add(req):
                     photo=image_file)
             #모든 PostImage와 Post의 생성이 완료되면
             # 피드 페이지로 이동하여 생성된 Post의 위치로 스크롤되도록 한다.
-            url = f'/posts/feeds/#post-{post.id}'
+            #url = f'/posts/feeds/#post-{post.id}'
+            url = reverse('posts:feeds') + f"#post-{post.id}"
             return HttpResponseRedirect(url)
     else:
         form = PostForm()

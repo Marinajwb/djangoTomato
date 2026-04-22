@@ -3,8 +3,9 @@
 {% block content %}
     <nav>
         <h1>
-          <a href="/posts/feeds/">Marina</a>
+          <a href="{% url 'posts:feeds' %}">Marina</a>
         </h1>
+        <a href="{% url 'users:logout' %}"></a>
     </nav>
     <div id="post-add">
         <h1>Post 작성</h1>
